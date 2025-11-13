@@ -1,0 +1,14 @@
+{
+    "name": "TruthLens extension",
+    "description": "",
+    "version": "1.0.0",
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+    },
+    "action": {
+        "default_popup": "index.html"
+    },
+    "manifest_version": 3,
+    "permissions": ["activeTab", "scripting"],
+    "host_permissions": ["<all_urls>"]
+}
