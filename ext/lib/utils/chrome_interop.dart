@@ -10,5 +10,5 @@ external JSPromise<JSString> _getSelectedText();
 Future<String> getSelectedText() async {
   final jsPromise = _getSelectedText();
   final jsString = await jsPromise.toDart;
-  return jsString.toDart;
+  return jsString.toDart.trim();
 }
