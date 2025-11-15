@@ -82,17 +82,33 @@ class _CheckTileState extends State<CheckTile> {
   }
 
   CircleAvatar _statusIcon(Status status) {
+    final brightness = Theme.of(context).brightness;
+
     final outerColor = {
-      Status.verified: Color(0xff95ff7d),
-      Status.questionable: Color(0xffffdb80),
-      Status.falseInfo: Color(0xfffcddda),
-    }[status];
+      Brightness.light: {
+        Status.verified: Color(0xff95ff7d),
+        Status.questionable: Color(0xffffdb80),
+        Status.falseInfo: Color(0xfffcddda),
+      },
+      Brightness.dark: {
+        Status.verified: Color(0xff3d7131),
+        Status.questionable: Color(0xff743700),
+        Status.falseInfo: Color(0xff8b1f12),
+      }
+    }[brightness]![status];
 
     final innerColor = {
-      Status.verified: Color(0xff3d7131),
-      Status.questionable: Color(0xffb46000),
-      Status.falseInfo: Color(0xffe43731),
-    }[status];
+      Brightness.light: {
+        Status.verified: Color(0xff3d7131),
+        Status.questionable: Color(0xffb46000),
+        Status.falseInfo: Color(0xffe43731),
+      },
+      Brightness.dark: {
+        Status.verified: Color(0xff7ce265),
+        Status.questionable: Color(0xfffdba0b),
+        Status.falseInfo: Color(0xffec9291),
+      }
+    }[brightness]![status];
 
     return CircleAvatar(
         radius: 20,

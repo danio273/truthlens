@@ -7,12 +7,26 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ColorScheme lightColorScheme = ColorScheme.fromSeed(
+      seedColor: Colors.deepPurple,
+      brightness: Brightness.light,
+    );
+    ColorScheme darkColorScheme = ColorScheme.fromSeed(
+      seedColor: Colors.deepPurple,
+      brightness: Brightness.dark,
+    );
+
     return MaterialApp(
       title: 'TruthLens',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        colorScheme: lightColorScheme,
       ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorScheme: darkColorScheme,
+      ),
+      themeMode: ThemeMode.system,
       home: const HomePage(),
     );
   }
