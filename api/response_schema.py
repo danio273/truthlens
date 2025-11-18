@@ -16,8 +16,13 @@ FACTOR_SCHEMA = types.Schema(
             type=types.Type.STRING,
             description="A detailed paragraph explaining the reasoning for the 'status' (in the original text's language)."
         ),
+        "source_links": types.Schema(
+            type=types.Type.ARRAY,
+            description="A list of 0-based index numbers corresponding to the most relevant sources in the CONTEXT FOR VERIFICATION block.",
+            items=types.Schema(type=types.Type.INTEGER)
+        ),
     },
-    required=["status", "short", "long"]
+    required=["status", "short", "long", "source_links"]
 )
 
 FACTORS_SCHEMA = types.Schema(
