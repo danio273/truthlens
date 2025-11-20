@@ -12,6 +12,11 @@ app = FastAPI(
 @app.post("/")
 async def factcheck(req: FactCheckRequest):
     try:
-        return fact_check(req.text)
+        return fact_check(req.query)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/health")
+@app.head("/health")
+async def health():
+    return {"status": "ok"}
