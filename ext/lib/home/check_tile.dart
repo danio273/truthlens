@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../data/model.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+
+import '../models/check.dart';
 
 class CheckTile extends StatefulWidget {
   final Check check;
@@ -81,56 +83,51 @@ class _CheckTileState extends State<CheckTile> {
     );
   }
 
-  CircleAvatar _statusIcon(Status status) {
+  Widget _statusIcon(CheckStatus status) {
     final brightness = Theme.of(context).brightness;
 
     final outerColor = {
       Brightness.light: {
-        Status.verified: Color(0xff95ff7d),
-        Status.questionable: Color(0xffffdb80),
-        Status.falseInfo: Color(0xfffcddda),
+        CheckStatus.verified: Color(0xff95ff7d),
+        CheckStatus.questionable: Color(0xffffdb80),
+        CheckStatus.falseInfo: Color(0xfffcddda),
       },
       Brightness.dark: {
-        Status.verified: Color(0xff3d7131),
-        Status.questionable: Color(0xff743700),
-        Status.falseInfo: Color(0xff8b1f12),
+        CheckStatus.verified: Color(0xff3d7131),
+        CheckStatus.questionable: Color(0xff743700),
+        CheckStatus.falseInfo: Color(0xff8b1f12),
       }
     }[brightness]![status];
 
     final innerColor = {
       Brightness.light: {
-        Status.verified: Color(0xff3d7131),
-        Status.questionable: Color(0xffb46000),
-        Status.falseInfo: Color(0xffe43731),
+        CheckStatus.verified: Color(0xff3d7131),
+        CheckStatus.questionable: Color(0xffb46000),
+        CheckStatus.falseInfo: Color(0xffe43731),
       },
       Brightness.dark: {
-        Status.verified: Color(0xff7ce265),
-        Status.questionable: Color(0xfffdba0b),
-        Status.falseInfo: Color(0xffec9291),
+        CheckStatus.verified: Color(0xff7ce265),
+        CheckStatus.questionable: Color(0xfffdba0b),
+        CheckStatus.falseInfo: Color(0xffec9291),
       }
     }[brightness]![status];
 
-    return CircleAvatar(
+    return Skeleton.replace(
+      replacement: CircleAvatar(radius: 20),
+      child: CircleAvatar(
         radius: 20,
         backgroundColor: outerColor,
         child: CircleAvatar(
           radius: 10,
           backgroundColor: innerColor,
-          child: status == Status.verified
-              ? Icon(
-                  Icons.check,
-                  fontWeight: FontWeight.w900,
-                  size: 11,
-                  color: outerColor,
-                )
-              : Text(
-                  "!",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 11,
-                    color: outerColor,
-                  ),
-                ),
-        ));
+          child: Icon(
+            status == CheckStatus.verified ? Icons.check : Icons.priority_high,
+            fontWeight: FontWeight.w900,
+            size: 11,
+            color: outerColor,
+          ),
+        ),
+      ),
+    );
   }
 }

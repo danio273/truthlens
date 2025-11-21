@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'screens/home.dart';
+import 'home/home_screen.dart';
+import 'utils/snackbar.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -18,6 +19,7 @@ class App extends StatelessWidget {
 
     return MaterialApp(
       title: 'TruthLens',
+      scaffoldMessengerKey: Snackbar.messengerKey,
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: lightColorScheme,
