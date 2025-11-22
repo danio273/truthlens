@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'router.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -14,12 +16,12 @@ class MyApp extends StatelessWidget {
       brightness: Brightness.dark,
     );
 
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'TruthLens',
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       themeMode: ThemeMode.system,
-      home: const Placeholder(),
+      routerConfig: router,
     );
   }
 }
