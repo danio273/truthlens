@@ -8,7 +8,8 @@ const Map<String, String> checkTitles = {
 enum CheckStatus {
   verified,
   questionable,
-  falseInfo;
+  falseInfo,
+  empty;
 
   static CheckStatus fromJson(String value) {
     switch (value) {
@@ -19,7 +20,7 @@ enum CheckStatus {
       case 'false_info':
         return CheckStatus.falseInfo;
       default:
-        return CheckStatus.falseInfo;
+        return CheckStatus.empty;
     }
   }
 }
@@ -28,13 +29,13 @@ class Check {
   final String title;
   final String shortDescription;
   final CheckStatus status;
-  final String description;
+  final String? description;
 
-  Check({
-    this.title = "",
-    this.shortDescription = "",
-    this.status = CheckStatus.verified,
-    this.description = "",
+  const Check({
+    required this.title,
+    required this.shortDescription,
+    this.status = CheckStatus.empty,
+    this.description,
   });
 
   static List<Check> listFromJson(Map<String, dynamic> json) {

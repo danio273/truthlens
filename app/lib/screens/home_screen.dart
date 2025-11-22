@@ -98,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                     runSpacing: 16,
                     children: [
                       _FeatureCard(
-                        title: 'Wtyczka',
+                        title: 'Rozszerzenie',
                         description:
                             'Analizuj teksty bezpośrednio w przeglądarce.',
                         icon: Icons.analytics,
@@ -115,6 +115,12 @@ class HomeScreen extends StatelessWidget {
                             'Dziel się odkryciami, dyskutuj i weryfikuj wpisy.',
                         icon: Icons.people,
                       ),
+                      _FeatureCard(
+                        title: 'API dla developerów',
+                        description:
+                            'Samodzielne API gotowe do integracji w każdej aplikacji.',
+                        icon: Icons.api,
+                      ),
                     ],
                   ),
                 ],
@@ -122,7 +128,7 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             Container(
-              color: theme.colorScheme.surfaceContainerHighest,
+              color: theme.colorScheme.surfaceContainerHigh,
               padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

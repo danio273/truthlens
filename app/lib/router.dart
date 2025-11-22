@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'screens/home_screen.dart';
+import 'widgets/root_scaffold.dart';
+
+import 'screens/home_screen.dart' show HomeScreen;
+import 'screens/check_screen.dart' show CheckScreen;
 
 final GoRouter router = GoRouter(
   routes: [
@@ -11,9 +14,9 @@ final GoRouter router = GoRouter(
           const NoTransitionPage(child: HomeScreen()),
     ),
     GoRoute(
-      path: '/forum',
+      path: '/check',
       pageBuilder: (context, state) => const NoTransitionPage(
-        child: RootScaffold(child: Placeholder()),
+        child: RootScaffold(child: CheckScreen()),
       ),
     ),
     GoRoute(
@@ -23,7 +26,7 @@ final GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
-      path: '/check',
+      path: '/forum',
       pageBuilder: (context, state) => const NoTransitionPage(
         child: RootScaffold(child: Placeholder()),
       ),
@@ -36,62 +39,3 @@ final GoRouter router = GoRouter(
     ),
   ],
 );
-
-class RootScaffold extends StatelessWidget {
-  final Widget child;
-  const RootScaffold({super.key, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            height: 70,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    TextButton(
-                      child: Text(
-                        'TruthLens',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
-                      ),
-                      onPressed: () => context.go('/'),
-                    ),
-                    const SizedBox(width: 18),
-                    TextButton(
-                      onPressed: () => context.go('/check'),
-                      child: const Text('Sprawdź tekst'),
-                    ),
-                    const SizedBox(width: 18),
-                    TextButton(
-                      onPressed: () => context.go('/educate'),
-                      child: const Text('Ucz się'),
-                    ),
-                    const SizedBox(width: 18),
-                    TextButton(
-                      onPressed: () => context.go('/forum'),
-                      child: Text('Społeczność'),
-                    ),
-                    const SizedBox(width: 18),
-                    TextButton(
-                      onPressed: () => context.go('/extension'),
-                      child: const Text('Pobierz rozszerzenie'),
-                    ),
-                  ],
-                ),
-                CircleAvatar(child: Icon(Icons.person)),
-              ],
-            ),
-          ),
-          Expanded(child: child),
-        ],
-      ),
-    );
-  }
-}
