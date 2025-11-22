@@ -1,23 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'screens/home_screen.dart';
+
 final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const RootScaffold(child: Placeholder()),
+      pageBuilder: (context, state) =>
+          const NoTransitionPage(child: HomeScreen()),
     ),
     GoRoute(
       path: '/forum',
-      builder: (context, state) => const RootScaffold(child: Placeholder()),
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: RootScaffold(child: Placeholder()),
+      ),
     ),
     GoRoute(
       path: '/educate',
-      builder: (context, state) => const RootScaffold(child: Placeholder()),
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: RootScaffold(child: Placeholder()),
+      ),
     ),
     GoRoute(
       path: '/check',
-      builder: (context, state) => const RootScaffold(child: Placeholder()),
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: RootScaffold(child: Placeholder()),
+      ),
+    ),
+    GoRoute(
+      path: '/extension',
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: RootScaffold(child: Placeholder()),
+      ),
     ),
   ],
 );
@@ -50,18 +65,23 @@ class RootScaffold extends StatelessWidget {
                     ),
                     const SizedBox(width: 18),
                     TextButton(
+                      onPressed: () => context.go('/check'),
+                      child: const Text('Sprawdź tekst'),
+                    ),
+                    const SizedBox(width: 18),
+                    TextButton(
+                      onPressed: () => context.go('/educate'),
+                      child: const Text('Ucz się'),
+                    ),
+                    const SizedBox(width: 18),
+                    TextButton(
                       onPressed: () => context.go('/forum'),
                       child: Text('Społeczność'),
                     ),
                     const SizedBox(width: 18),
                     TextButton(
-                      onPressed: () => context.go('/educate'),
-                      child: const Text('Ucz się z nami'),
-                    ),
-                    const SizedBox(width: 18),
-                    TextButton(
-                      onPressed: () => context.go('/check'),
-                      child: const Text('Sprawdź tekst'),
+                      onPressed: () => context.go('/extension'),
+                      child: const Text('Pobierz rozszerzenie'),
                     ),
                   ],
                 ),
