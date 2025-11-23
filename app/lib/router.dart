@@ -6,6 +6,7 @@ import 'widgets/root_scaffold.dart';
 import 'screens/home_screen.dart' show HomeScreen;
 import 'screens/check_screen.dart' show CheckScreen;
 import 'screens/educate_screen.dart' show EducateScreen;
+import 'screens/extension_screen.dart' show ExtensionScreen;
 
 final GoRouter router = GoRouter(
   routes: [
@@ -34,9 +35,8 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/extension',
-      pageBuilder: (context, state) => const NoTransitionPage(
-        child: RootScaffold(child: Placeholder()),
-      ),
+      pageBuilder: (context, state) =>
+          const NoTransitionPage(child: ExtensionScreen()),
     ),
   ],
 );

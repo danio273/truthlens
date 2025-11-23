@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../widgets/step_item.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -55,6 +57,12 @@ class HomeScreen extends StatelessWidget {
                           context.go('/forum');
                         },
                         child: const Text('Społeczność'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          context.go('/extension');
+                        },
+                        child: const Text('Rozszerzenie'),
                       ),
                     ],
                   ),
@@ -139,19 +147,19 @@ class HomeScreen extends StatelessWidget {
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
-                  _StepItem(
+                  StepItem(
                     number: 1,
                     text: 'Zainstaluj rozszerzenie przeglądarki',
                   ),
-                  _StepItem(
+                  StepItem(
                     number: 2,
                     text: 'Zaznacz tekst na stronie',
                   ),
-                  _StepItem(
+                  StepItem(
                     number: 3,
                     text: 'Kliknij ikonę → zobacz analizę',
                   ),
-                  _StepItem(
+                  StepItem(
                     number: 4,
                     text: 'Ucz się na flashcards / dziel się w forum',
                   ),
@@ -222,40 +230,6 @@ class _FeatureCard extends StatelessWidget {
             style: theme.textTheme.bodyMedium
                 ?.copyWith(color: theme.colorScheme.onSecondaryContainer),
             textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _StepItem extends StatelessWidget {
-  final int number;
-  final String text;
-
-  const _StepItem({required this.number, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(
-            backgroundColor: theme.colorScheme.primary,
-            foregroundColor: theme.colorScheme.onPrimary,
-            radius: 16,
-            child: Text(number.toString()),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Text(
-              text,
-              style: theme.textTheme.bodyLarge,
-            ),
           ),
         ],
       ),

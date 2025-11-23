@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:go_router/go_router.dart';
 
 import '../models/check.dart' show Check;
 import '../widgets/checks_widget.dart';
@@ -85,7 +86,7 @@ class _CheckScreenState extends State<CheckScreen> {
     final theme = Theme.of(context);
     final wideScreen = MediaQuery.of(context).size.width > 1100;
 
-    return Center( 
+    return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -103,7 +104,8 @@ class _CheckScreenState extends State<CheckScreen> {
                 alignment: WrapAlignment.start,
                 children: [
                   SizedBox(
-                      width: wideScreen ? 500 : 550, child: _buildTextInput(wideScreen, theme)),
+                      width: wideScreen ? 500 : 550,
+                      child: _buildTextInput(wideScreen, theme)),
                   SizedBox(width: 550, child: _buildResultsArea(wideScreen)),
                 ],
               ),
@@ -155,6 +157,14 @@ class _CheckScreenState extends State<CheckScreen> {
               label: Text("Wyczyść"),
               onPressed: () => _clearText(),
             ),
+            if (wideScreen) ...[
+              const SizedBox(width: 10),
+              OutlinedButton.icon(
+                icon: Icon(Icons.download),
+                label: Text("Pobierz rozszerzenie"),
+                onPressed: () => context.go("/extension"),
+              ),
+            ]
           ],
         )
       ],
