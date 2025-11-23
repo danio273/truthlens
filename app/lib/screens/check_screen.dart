@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../models/check.dart' show Check;
-import '../widgets/check_widget.dart';
-import '../utils/fact_check.dart';
+import '../widgets/checks_widget.dart';
+import '../services/api_service.dart';
 
 enum Status { empty, loading, success, error }
 
@@ -83,11 +83,9 @@ class _CheckScreenState extends State<CheckScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final screenWidth = MediaQuery.of(context).size.width;
-    final wideScreen = screenWidth > 830;
+    final wideScreen = MediaQuery.of(context).size.width > 830;
 
-    return Align(
-      alignment: Alignment.topLeft,
+    return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -104,8 +102,9 @@ class _CheckScreenState extends State<CheckScreen> {
               Wrap(
                 alignment: WrapAlignment.start,
                 children: [
-                  _buildTextInput(wideScreen, screenWidth, theme),
-                  _buildResultsArea(wideScreen, screenWidth),
+                  SizedBox(
+                      width: 500, child: _buildTextInput(wideScreen, theme)),
+                  SizedBox(width: 550, child: _buildResultsArea(wideScreen)),
                 ],
               ),
             ],
@@ -115,70 +114,63 @@ class _CheckScreenState extends State<CheckScreen> {
     );
   }
 
-  Padding _buildResultsArea(bool wideScreen, double screenWidth) {
+  Column _buildTextInput(bool wideScreen, ThemeData theme) {
+    final mainAxisAlignment =
+        !wideScreen ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start;
+
+    return Column(
+      children: [
+        TextField(
+          controller: textEditingController,
+          onChanged: (_) {
+            setState(() {});
+          },
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: theme.colorScheme.primary,
+                width: 2,
+              ),
+            ),
+          ),
+          minLines: wideScreen ? 12 : 5,
+          maxLines: wideScreen ? 30 : 12,
+        ),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: mainAxisAlignment,
+          children: [
+            FilledButton.icon(
+              icon: Icon(Icons.send),
+              label: Text("Sprawdź"),
+              onPressed: () => _checkText(),
+            ),
+            const SizedBox(width: 10),
+            OutlinedButton.icon(
+              icon: Icon(Icons.clear),
+              label: Text("Wyczyść"),
+              onPressed: () => _clearText(),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  Padding _buildResultsArea(bool wideScreen) {
     final padding = wideScreen
-        ? EdgeInsets.symmetric(horizontal: screenWidth * 0.02)
-        : const EdgeInsets.symmetric(vertical: 10.0);
+        ? EdgeInsets.only(left: 15)
+        : const EdgeInsets.only(top: 20.0);
 
     return Padding(
       padding: padding,
       child: Skeletonizer(
         enabled: status == Status.loading,
         child: ChecksWidget(checks: checks),
-      ),
-    );
-  }
-
-  ConstrainedBox _buildTextInput(
-      bool wideScreen, double screenWidth, ThemeData theme) {
-    final maxWidth = wideScreen ? screenWidth * 0.45 : screenWidth;
-    final mainAxisAlignment =
-        !wideScreen ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start;
-
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: maxWidth,
-      ),
-      child: Column(
-        children: [
-          TextField(
-            controller: textEditingController,
-            onChanged: (_) {
-              setState(() {});
-            },
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                  color: theme.colorScheme.primary,
-                  width: 2,
-                ),
-              ),
-            ),
-            minLines: wideScreen ? 12 : 5,
-            maxLines: wideScreen ? 30 : 12,
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: mainAxisAlignment,
-            children: [
-              FilledButton.icon(
-                icon: Icon(Icons.send),
-                label: Text("Sprawdź"),
-                onPressed: () => _checkText(),
-              ),
-              const SizedBox(width: 10),
-              OutlinedButton.icon(
-                icon: Icon(Icons.clear),
-                label: Text("Wyczyść"),
-                onPressed: () => _clearText(),
-              ),
-            ],
-          )
-        ],
       ),
     );
   }

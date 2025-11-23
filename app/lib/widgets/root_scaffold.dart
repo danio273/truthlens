@@ -21,7 +21,7 @@ class RootScaffold extends StatelessWidget {
                 BoxShadow(
                   color: Colors.black..withValues(alpha: 0.1),
                   blurRadius: 4,
-                  offset: const Offset(0, 2),
+                  offset: const Offset(0, 0.5),
                 ),
               ],
             ),
@@ -46,11 +46,6 @@ class RootScaffold extends StatelessWidget {
                     _NavButton(label: 'Społeczność', route: '/forum'),
                     _NavButton(label: 'Rozszerzenie', route: '/extension'),
                   ],
-                ),
-                CircleAvatar(
-                  backgroundColor: theme.colorScheme.secondaryContainer,
-                  child: Icon(Icons.person,
-                      color: theme.colorScheme.onSecondaryContainer),
                 ),
               ],
             ),

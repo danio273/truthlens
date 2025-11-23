@@ -1,72 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-
 import '../models/check.dart';
 
-class ChecksWidget extends StatelessWidget {
-  final List<Check> checks;
-
-  const ChecksWidget({
-    super.key,
-    List<Check>? checks,
-  }) : checks = checks ??
-            const [
-              Check(
-                title: "Wiarygodność źródła",
-                shortDescription:
-                    "Sprawdza, czy informacje pochodzą z rzetelnych źródeł.",
-              ),
-              Check(
-                title: "Jakość logiki",
-                shortDescription: "Ocena, czy wnioski są logiczne i sensowne.",
-              ),
-              Check(
-                title: "Presja emocjonalna",
-                shortDescription:
-                    "Analizuje, czy tekst wywołuje emocje, manipulując odbiorcą.",
-              ),
-              Check(
-                title: "Struktura manipulacyjna",
-                shortDescription:
-                    "Sprawdza, czy struktura tekstu kieruje opinią czy informuje.",
-              ),
-            ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ...checks.asMap().entries.map((entry) {
-          final index = entry.key;
-          final check = entry.value;
-
-          return _CheckTile(
-            check: check,
-            isFirst: index == 0,
-            isLast: index == checks.length - 1,
-          );
-        })
-      ],
-    );
-  }
-}
-
-class _CheckTile extends StatefulWidget {
+class CheckTile extends StatefulWidget {
   final Check check;
   final bool isFirst;
   final bool isLast;
 
-  const _CheckTile({
+  const CheckTile({
+    super.key,
     required this.check,
-    required this.isFirst,
-    required this.isLast,
+    this.isFirst = true,
+    this.isLast = true,
   });
 
   @override
-  State<_CheckTile> createState() => _CheckTileState();
+  State<CheckTile> createState() => CheckTileState();
 }
 
-class _CheckTileState extends State<_CheckTile> {
+class CheckTileState extends State<CheckTile> {
   bool _expanded = false;
 
   @override
