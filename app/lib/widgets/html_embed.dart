@@ -10,6 +10,7 @@ class HtmlEmbed extends StatefulWidget {
   final double width;
   final double height;
   final bool autoHeight;
+  final bool ignorePointer;
 
   const HtmlEmbed({
     super.key,
@@ -17,6 +18,7 @@ class HtmlEmbed extends StatefulWidget {
     required this.width,
     this.height = 80,
     this.autoHeight = false,
+    this.ignorePointer = false,
   });
 
   @override
@@ -72,6 +74,13 @@ class HtmlEmbedState extends State<HtmlEmbed> {
           ..style.height = '${_height}px'
           ..srcdoc =
               widget.autoHeight ? _wrapHtmlWithAuto(widget.html) : widget.html;
+
+        if (widget.ignorePointer) {
+          _iframe!.style.pointerEvents = 'none';
+        } else {
+          _iframe!.style.pointerEvents = 'auto';
+        }
+
         return _iframe!;
       },
     );
@@ -156,8 +165,9 @@ class TwitterEmbed extends StatelessWidget {
   </body>
 </html>
 """,
-      autoHeight: true,
       width: 500,
+      autoHeight: true,
+      ignorePointer: true,
     );
   }
 }
