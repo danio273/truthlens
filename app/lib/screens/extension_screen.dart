@@ -16,7 +16,7 @@ class ExtensionScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     final String extensionUrl =
-        "https://raw.githubusercontent.com/danio273/truthlens/main/ext/extension.crx";
+        "https://github.com/danio273/truthlens/releases/download/v1.0.0/truthlens-extension.zip";
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -50,7 +50,7 @@ class ExtensionScreen extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         onPressed: () => openUrl(extensionUrl),
-                        child: const Text('Pobierz rozszerzenie (CRX)'),
+                        child: const Text('Pobierz rozszerzenie (ZIP)'),
                       ),
                       OutlinedButton(
                         onPressed: () => context.go('/'),
@@ -101,17 +101,21 @@ class ExtensionScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Instrukcja instalacji rozszerzenia z pliku CRX',
+                    'Instrukcja instalacji rozszerzenia z pliku ZIP',
                     style: theme.textTheme.headlineSmall
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
                   InstructionStep(
                     number: 1,
-                    text: 'Pobierz plik .crx na swój komputer.',
+                    text: 'Pobierz plik .zip na swój komputer.',
                   ),
                   InstructionStep(
                     number: 2,
+                    text: 'Rozpakuj plik .zip w wybranej lokalizacji.',
+                  ),
+                  InstructionStep(
+                    number: 3,
                     text:
                         'Otwórz Chrome, kliknij trzy kropki > Rozszerzenia > Zarządzaj rozszerzeniami',
                     shortcutText:
@@ -123,12 +127,12 @@ class ExtensionScreen extends StatelessWidget {
                         'Włącz tryb deweloperski (Developer mode) w prawym górnym rogu.',
                   ),
                   InstructionStep(
-                    number: 4,
+                    number: 5,
                     text:
-                        'Przeciągnij plik .crx na stronę rozszerzeń i potwierdź instalację.',
+                        'Kliknij "Load unpacked" i wskaż folder rozszerzenia, który rozpakowałeś z .zip.',
                   ),
                   InstructionStep(
-                    number: 5,
+                    number: 6,
                     text:
                         'Rozszerzenie powinno pojawić się w pasku narzędzi przeglądarki.',
                   ),

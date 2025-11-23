@@ -24,17 +24,28 @@ Rozszerzenie TruthLens umożliwia szybką analizę zaznaczonego tekstu na dowoln
 - Kompatybilne z przeglądarkami opartymi na Chromium (np. Google Chrome, Microsoft Edge). Nie testowane na Firefox.
 
 ### Instalacja i Uruchomienie
-1. **Budowanie**: W katalogu `/ext` uruchom komendę:
-   ```
-   flutter build web --no-web-resources-cdn --pwa-strategy=none --wasm
-   ```
-   Spowoduje to wygenerowanie folderu `build/web`, który zawiera pliki rozszerzenia.
-2. **Instalacja lokalna**: 
-   - W przeglądarce Chrome przejdź do `chrome://extensions/`.
-   - Włącz tryb deweloperski (Developer mode).
-   - Wybierz "Load unpacked" i wskaż folder `build/web`.
-   - Alternatywnie, na stronie www.truthlens.pl w sekcji "Rozszerzenie" dostępny jest plik .crx do bezpośredniego pobrania i instalacji (postępuj zgodnie z instrukcją na stronie).
-3. **Użycie**: Po instalacji zaznacz tekst na stronie, kliknij ikonę rozszerzenia i zobacz wyniki.
+TruthLens Extension można zainstalować na trzy sposoby:
+
+#### 1. Pobranie z naszej strony
+- Wejdź na [www.truthlens.pl](https://www.truthlens.pl/#/extension)
+- Na stronie znajduje się pełna instrukcja instalacji i uruchomienia w Chrome.
+
+#### 2. Pobranie z GitHub Release
+- Rozszerzenie w formie `.zip` dostępne jest w sekcji Release.
+- Następnie w Chrome:
+  1. W przeglądarce Chrome przejdź do `chrome://extensions/`.
+  2. Włącz tryb deweloperski (Developer mode).
+  3. Wybierz "Load unpacked" i wskaż folder `build/web`.
+
+#### 3. Zbudować samodzielnie
+- W katalogu `/ext` uruchom komendę:
+  ```
+  flutter build web --no-web-resources-cdn --pwa-strategy=none --wasm
+  ```
+  Spowoduje to wygenerowanie folderu `build/web`, który zawiera pliki rozszerzenia.
+- Rozpakuj plik `.zip` i postępuj według powyższych instrukcji w Chrome (Load unpacked).
+
+**Użycie**: Po instalacji zaznacz tekst na stronie, kliknij ikonę rozszerzenia i zobacz wyniki.
 
 ![extension](assets/screenshots/extension.gif)
 
