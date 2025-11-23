@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../widgets/step_item.dart';
-import '../utils/download_from_url.dart';
+
+import '../models/navigation_item.dart';
+import '../widgets/bottom_navigation.dart';
+
+import '../utils/open_url.dart';
 
 class ExtensionScreen extends StatelessWidget {
   const ExtensionScreen({super.key});
@@ -45,7 +49,7 @@ class ExtensionScreen extends StatelessWidget {
                     runSpacing: 8,
                     children: [
                       ElevatedButton(
-                        onPressed: () => downloadFromUrl(extensionUrl),
+                        onPressed: () => openUrl(extensionUrl),
                         child: const Text('Pobierz rozszerzenie (CRX)'),
                       ),
                       OutlinedButton(
@@ -134,35 +138,17 @@ class ExtensionScreen extends StatelessWidget {
             const SizedBox(height: 40),
             ColoredBox(
               color: theme.colorScheme.surfaceContainerHigh,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
-                child: Wrap(
-                  spacing: 16,
-                  runSpacing: 8,
-                  alignment: WrapAlignment.center,
-                  children: [
-                    _bottomNavigationButton(context, '/check', 'Sprawdź tekst'),
-                    _bottomNavigationButton(context, '/educate', 'Ucz się'),
-                    _bottomNavigationButton(context, '/forum', 'Społeczność'),
-                  ],
-                ),
+              child: BottomNavigation(
+                items: [
+                  NavigationItem(route: '/check', label: 'Sprawdź tekst'),
+                  NavigationItem(route: '/educate', label: 'Ucz się'),
+                  NavigationItem(route: '/forum', label: 'Społeczność'),
+                ],
               ),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  ElevatedButton _bottomNavigationButton(
-      BuildContext context, String route, String label) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-      ),
-      onPressed: () => context.go(route),
-      child: Text(label),
     );
   }
 }

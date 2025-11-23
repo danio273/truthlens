@@ -3,8 +3,15 @@ import 'package:go_router/go_router.dart';
 
 import '../widgets/step_item.dart';
 
+import '../models/navigation_item.dart';
+import '../widgets/bottom_navigation.dart';
+
+import '../utils/open_url.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  final repoUrl = "https://github.com/danio273/truthlens";
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                         },
                         child: const Text('Społeczność'),
                       ),
-                      ElevatedButton(
+                      FilledButton(
                         onPressed: () {
                           context.go('/extension');
                         },
@@ -166,23 +173,18 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
-              child: Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    context.go('/extension');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 16),
-                  ),
-                  child: const Text(
-                    'Zainstaluj roszerzenie teraz',
-                    style: TextStyle(fontSize: 18),
-                  ),
+            BottomNavigation(
+              items: [
+                NavigationItem(
+                  route: '/extension',
+                  label: 'Zainstaluj roszerzenie teraz',
                 ),
-              ),
+                NavigationItem(
+                  route: '/',
+                  label: 'Repozytorium GitHub',
+                  onPressed: () => openUrl(repoUrl),
+                ),
+              ],
             ),
           ],
         ),

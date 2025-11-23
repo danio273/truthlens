@@ -86,33 +86,31 @@ class _CheckScreenState extends State<CheckScreen> {
     final theme = Theme.of(context);
     final wideScreen = MediaQuery.of(context).size.width > 1100;
 
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Sprawdź tekst", style: theme.textTheme.titleLarge),
-          const SizedBox(height: 8),
-          Text(
-            'Wklej dowolny tekst i zobacz, jak wiarygodny jest jego przekaz w czterech kategoriach.',
-            style: theme.textTheme.bodyLarge,
-          ),
-          const SizedBox(height: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Wrap(
-                alignment: WrapAlignment.start,
-                children: [
-                  SizedBox(
-                      width: wideScreen ? 500 : 550,
-                      child: _buildTextInput(wideScreen, theme)),
-                  SizedBox(width: 550, child: _buildResultsArea(wideScreen)),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Sprawdź tekst", style: theme.textTheme.titleLarge),
+        const SizedBox(height: 8),
+        Text(
+          'Wklej dowolny tekst i zobacz, jak wiarygodny jest jego przekaz w czterech kategoriach.',
+          style: theme.textTheme.bodyLarge,
+        ),
+        const SizedBox(height: 10),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              alignment: WrapAlignment.start,
+              children: [
+                SizedBox(
+                    width: wideScreen ? 500 : 550,
+                    child: _buildTextInput(wideScreen, theme)),
+                SizedBox(width: 550, child: _buildResultsArea(wideScreen)),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 

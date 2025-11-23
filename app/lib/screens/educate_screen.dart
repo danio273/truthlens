@@ -7,7 +7,7 @@ import '../widgets/check_tile.dart';
 import '../models/check.dart';
 
 import '../models/flashcard.dart';
-import '../services/mock_data.dart';
+import '../services/mock_flashcards.dart';
 
 import '../models/criteria_data.dart';
 
@@ -76,31 +76,29 @@ class _EducateScreenState extends State<EducateScreen> {
     final mainAxisAlignment =
         wideScreen ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween;
 
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Ucz się z nami", style: theme.textTheme.titleLarge),
-          const SizedBox(height: 8),
-          Text(
-            'Analizuj krótkie teksty i ćwicz rozpoznawanie manipulacji, presji emocjonalnej i jakości źródeł.',
-            style: theme.textTheme.bodyLarge,
-          ),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: [
-              SizedBox(
-                width: boxkWidth,
-                child: cardBuild(mainAxisAlignment),
-              ),
-              SizedBox(
-                width: boxkWidth,
-                child: solveBuild(wideScreen, screenWidth, mainAxisAlignment),
-              ),
-            ],
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Ucz się z nami", style: theme.textTheme.titleLarge),
+        const SizedBox(height: 8),
+        Text(
+          'Analizuj krótkie teksty i ćwicz rozpoznawanie manipulacji, presji emocjonalnej i jakości źródeł.',
+          style: theme.textTheme.bodyLarge,
+        ),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: [
+            SizedBox(
+              width: boxkWidth,
+              child: cardBuild(mainAxisAlignment),
+            ),
+            SizedBox(
+              width: boxkWidth,
+              child: solveBuild(wideScreen, screenWidth, mainAxisAlignment),
+            ),
+          ],
+        ),
+      ],
     );
   }
 

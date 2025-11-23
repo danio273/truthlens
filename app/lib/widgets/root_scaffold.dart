@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../models/navigation_item.dart';
+
 class RootScaffold extends StatelessWidget {
   final Widget child;
   const RootScaffold({super.key, required this.child});
@@ -11,10 +13,9 @@ class RootScaffold extends StatelessWidget {
     final isMobile = MediaQuery.of(context).size.width < 650;
 
     final navItems = [
-      ('Sprawdź tekst', '/check'),
-      ('Ucz się', '/educate'),
-      ('Społeczność', '/forum'),
-      ('Rozszerzenie', '/extension'),
+      NavigationItem(label: 'Sprawdź tekst', route: '/check'),
+      NavigationItem(label: 'Ucz się', route: '/educate'),
+      NavigationItem(label: 'Społeczność', route: '/forum'),
     ];
 
     return Scaffold(
@@ -42,10 +43,7 @@ class RootScaffold extends StatelessWidget {
                   for (final item in navItems)
                     Padding(
                       padding: const EdgeInsets.only(right: 16),
-                      child: _NavButton(
-                        label: item.$1,
-                        route: item.$2,
-                      ),
+                      child: _NavButton(item: item),
                     ),
                 ],
               ),
@@ -54,14 +52,14 @@ class RootScaffold extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: child,
+        child: Center(child: child),
       ),
     );
   }
 }
 
 class _MobileDrawer extends StatelessWidget {
-  final List<(String, String)> navItems;
+  final List<NavigationItem> navItems;
   const _MobileDrawer({required this.navItems});
 
   @override
@@ -89,12 +87,12 @@ class _MobileDrawer extends StatelessWidget {
                   for (final item in navItems)
                     ListTile(
                       title: Text(
-                        item.$1,
+                        item.label,
                         style: theme.textTheme.bodyLarge,
                       ),
                       onTap: () {
                         Navigator.pop(context);
-                        context.go(item.$2);
+                        context.go(item.route);
                       },
                     ),
                 ],
@@ -108,17 +106,16 @@ class _MobileDrawer extends StatelessWidget {
 }
 
 class _NavButton extends StatelessWidget {
-  final String label;
-  final String route;
-  const _NavButton({required this.label, required this.route});
+  final NavigationItem item;
+  const _NavButton({required this.item});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return TextButton(
-      onPressed: () => context.go(route),
+      onPressed: () => context.go(item.route),
       child: Text(
-        label,
+        item.label,
         style: theme.textTheme.bodyMedium?.copyWith(
           color: theme.colorScheme.onPrimaryContainer,
         ),

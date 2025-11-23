@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'widgets/root_scaffold.dart';
@@ -6,6 +5,7 @@ import 'widgets/root_scaffold.dart';
 import 'screens/home_screen.dart' show HomeScreen;
 import 'screens/check_screen.dart' show CheckScreen;
 import 'screens/educate_screen.dart' show EducateScreen;
+import 'screens/forum_screen.dart' show ForumScreen;
 import 'screens/extension_screen.dart' show ExtensionScreen;
 
 final GoRouter router = GoRouter(
@@ -30,7 +30,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/forum',
       pageBuilder: (context, state) => const NoTransitionPage(
-        child: RootScaffold(child: Placeholder()),
+        child: RootScaffold(child: ForumScreen()),
       ),
     ),
     GoRoute(
