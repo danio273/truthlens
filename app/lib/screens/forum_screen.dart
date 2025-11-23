@@ -28,7 +28,7 @@ class ForumScreen extends StatelessWidget {
           const SizedBox(height: 16),
           ElevatedButton.icon(
             onPressed: () {},
-            icon: const Icon(Icons.add),
+            icon: Icon(Icons.add_circle),
             label: const Text("Nowy post"),
           ),
           const SizedBox(height: 24),
