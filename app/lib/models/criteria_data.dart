@@ -14,20 +14,20 @@ final List<EducateCriterion> criteria = [
     title: "Logika wypowiedzi",
     shortDescription: "Oceń spójność — czy wnioski wynikają z faktów.",
     description: "Przeanalizuj tok argumentacji krok po kroku. "
-        "Wykrywaj fałszywe przyczynowości, nadinterpretacje і luki dowodowe.",
+        "Wykrywaj fałszywe przyczynowości, nadinterpretacje i luki dowodowe.",
     options: ["Logiczne", "Częściowo logiczne", "Nielogiczne"],
   ),
   EducateCriterion(
     title: "Presja emocjonalna",
     shortDescription: "Zidentyfikuj emocje — oddziel uczucia od faktów.",
     description: "Zwróć uwagę na język budzący strach, litość lub szok. "
-        "Usuń emocjonalną warstwę і sprawdź, jakie fakty naprawdę zostają.",
+        "Usuń emocjonalną warstwę i sprawdź, jakie fakty naprawdę zostają.",
     options: ["Niska", "Średnia", "Wysoka"],
   ),
   EducateCriterion(
     title: "Manipulacyjna struktura tekstu",
     shortDescription:
-        "Sprawdź układ — czy текст prowadzi do określonej reakcji.",
+        "Sprawdź układ — czy tekst prowadzi do określonej reakcji.",
     description:
         "Przeanalizuj kolejność informacji, pominięcia kontekstu, sensacyjność "
         "i jednostronność. Zadaj pytanie: „Co zostało przemilczane?”",

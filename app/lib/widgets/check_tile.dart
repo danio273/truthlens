@@ -25,11 +25,7 @@ class CheckTileState extends State<CheckTile> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
 
-    final screenWidth = MediaQuery.of(context).size.width;
-    final wideScreen = screenWidth > 830;
-
     return Container(
-      width: wideScreen ? screenWidth * 0.45 : screenWidth,
       decoration: BoxDecoration(
         color: cs.surfaceContainerLow,
         borderRadius: _borderRadius,

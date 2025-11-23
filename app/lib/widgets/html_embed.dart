@@ -28,34 +28,39 @@ class HtmlEmbedState extends State<HtmlEmbed> {
   late double _height;
   html.IFrameElement? _iframe;
 
+  late final void Function(html.Event) _listener;
+
   @override
   void initState() {
     super.initState();
 
     _height = widget.height;
-
     viewId = "iframe_${UniqueKey()}";
 
     if (widget.autoHeight) {
-      html.window.onMessage.listen((event) {
-        if (event.data is String) {
-          try {
-            final data = jsonDecode(event.data);
+      _listener = (html.Event event) {
+        if (event is html.MessageEvent) {
+          final msgData = event.data;
+          if (msgData is String) {
+            try {
+              final data = jsonDecode(msgData);
+              if (data["iframeId"] == viewId) {
+                final newHeight = (data["height"] as num).toDouble() + 20;
 
-            if (data["iframeId"] == viewId) {
-              final newHeight = (data["height"] as num).toDouble() + 20;
+                if (mounted && newHeight != _height) {
+                  setState(() => _height = newHeight);
+                }
 
-              if (mounted && newHeight != _height) {
-                setState(() => _height = newHeight);
+                if (_iframe != null) {
+                  _iframe!.style.height = "${newHeight}px";
+                }
               }
-
-              if (_iframe != null) {
-                _iframe!.style.height = "${newHeight}px";
-              }
-            }
-          } catch (_) {}
+            } catch (_) {}
+          }
         }
-      });
+      };
+
+      html.window.addEventListener('message', _listener);
     }
 
     ui.platformViewRegistry.registerViewFactory(
@@ -67,10 +72,17 @@ class HtmlEmbedState extends State<HtmlEmbed> {
           ..style.height = '${_height}px'
           ..srcdoc =
               widget.autoHeight ? _wrapHtmlWithAuto(widget.html) : widget.html;
-
         return _iframe!;
       },
     );
+  }
+
+  @override
+  void dispose() {
+    if (widget.autoHeight) {
+      html.window.removeEventListener('message', _listener);
+    }
+    super.dispose();
   }
 
   String _wrapHtmlWithAuto(String innerHtml) {
@@ -108,7 +120,10 @@ class HtmlEmbedState extends State<HtmlEmbed> {
     return SizedBox(
       width: widget.width,
       height: _height,
-      child: HtmlElementView(viewType: viewId),
+      child: HtmlElementView(
+        viewType: viewId,
+        key: ValueKey(viewId),
+      ),
     );
   }
 }

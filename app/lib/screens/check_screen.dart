@@ -83,9 +83,9 @@ class _CheckScreenState extends State<CheckScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final wideScreen = MediaQuery.of(context).size.width > 830;
+    final wideScreen = MediaQuery.of(context).size.width > 1100;
 
-    return Center(
+    return Center( 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -103,7 +103,7 @@ class _CheckScreenState extends State<CheckScreen> {
                 alignment: WrapAlignment.start,
                 children: [
                   SizedBox(
-                      width: 500, child: _buildTextInput(wideScreen, theme)),
+                      width: wideScreen ? 500 : 550, child: _buildTextInput(wideScreen, theme)),
                   SizedBox(width: 550, child: _buildResultsArea(wideScreen)),
                 ],
               ),

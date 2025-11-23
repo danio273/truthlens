@@ -8,58 +8,100 @@ class RootScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isMobile = MediaQuery.of(context).size.width < 650;
+
+    final navItems = [
+      ('Sprawdź tekst', '/check'),
+      ('Ucz się', '/educate'),
+      ('Społeczność', '/forum'),
+      ('Rozszerzenie', '/extension'),
+    ];
 
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: 70,
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.primaryContainer,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black..withValues(alpha: 0.1),
-                  blurRadius: 4,
-                  offset: const Offset(0, 0.5),
+      drawer: isMobile ? _MobileDrawer(navItems: navItems) : null,
+      appBar: AppBar(
+        backgroundColor: theme.colorScheme.primaryContainer,
+        elevation: 2,
+        shadowColor: Colors.black.withValues(alpha: 0.07),
+        title: Row(
+          children: [
+            TextButton(
+              child: Text(
+                'TruthLens',
+                style: theme.textTheme.titleLarge?.copyWith(
+                  color: theme.colorScheme.onPrimaryContainer,
+                  fontWeight: FontWeight.bold,
                 ),
-              ],
+              ),
+              onPressed: () => context.go('/'),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    TextButton(
-                      onPressed: () => context.go('/'),
-                      child: Text(
-                        'TruthLens',
-                        style: theme.textTheme.titleLarge?.copyWith(
-                          color: theme.colorScheme.onPrimaryContainer,
-                          fontWeight: FontWeight.bold,
-                        ),
+            const SizedBox(width: 24),
+            if (!isMobile)
+              Row(
+                children: [
+                  for (final item in navItems)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: _NavButton(
+                        label: item.$1,
+                        route: item.$2,
                       ),
                     ),
-                    const SizedBox(width: 24),
-                    _NavButton(label: 'Sprawdź tekst', route: '/check'),
-                    _NavButton(label: 'Ucz się', route: '/educate'),
-                    _NavButton(label: 'Społeczność', route: '/forum'),
-                    _NavButton(label: 'Rozszerzenie', route: '/extension'),
-                  ],
+                ],
+              ),
+          ],
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        child: child,
+      ),
+    );
+  }
+}
+
+class _MobileDrawer extends StatelessWidget {
+  final List<(String, String)> navItems;
+  const _MobileDrawer({required this.navItems});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Drawer(
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                'TruthLens',
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
                 ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                child: child,
               ),
             ),
-          ),
-        ],
+            const Divider(),
+            Expanded(
+              child: ListView(
+                children: [
+                  for (final item in navItems)
+                    ListTile(
+                      title: Text(
+                        item.$1,
+                        style: theme.textTheme.bodyLarge,
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        context.go(item.$2);
+                      },
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -73,15 +115,12 @@ class _NavButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0),
-      child: TextButton(
-        onPressed: () => context.go(route),
-        child: Text(
-          label,
-          style: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.onPrimaryContainer,
-          ),
+    return TextButton(
+      onPressed: () => context.go(route),
+      child: Text(
+        label,
+        style: theme.textTheme.bodyMedium?.copyWith(
+          color: theme.colorScheme.onPrimaryContainer,
         ),
       ),
     );

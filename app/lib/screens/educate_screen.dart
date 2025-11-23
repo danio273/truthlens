@@ -1,4 +1,3 @@
-import 'package:app/models/flashcard.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/html_embed.dart';
@@ -7,9 +6,11 @@ import '../widgets/checks_widget.dart';
 import '../widgets/check_tile.dart';
 import '../models/check.dart';
 
+import '../models/flashcard.dart';
 import '../services/mock_data.dart';
 
 import '../models/criteria_data.dart';
+
 import '../widgets/toggle_selector.dart';
 
 const numberStatus = {
@@ -29,7 +30,7 @@ class EducateScreen extends StatefulWidget {
 }
 
 class _EducateScreenState extends State<EducateScreen> {
-  final double rightWidth = 550;
+  final double boxkWidth = 550;
 
   List<int> selectedIndexes = List.filled(4, -1);
 
@@ -71,7 +72,9 @@ class _EducateScreenState extends State<EducateScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final screenWidth = MediaQuery.of(context).size.width;
-    final wideScreen = screenWidth > 830;
+    final wideScreen = screenWidth > 1150;
+    final mainAxisAlignment =
+        wideScreen ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween;
 
     return Center(
       child: Column(
@@ -86,34 +89,14 @@ class _EducateScreenState extends State<EducateScreen> {
           Wrap(
             alignment: WrapAlignment.center,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TwitterEmbed(url: cards[currentCardIndex].url),
-                  SizedBox(height: 10),
-                  cardButtons(),
-                ],
+              SizedBox(
+                width: boxkWidth,
+                child: cardBuild(mainAxisAlignment),
               ),
-              Padding(
-                  padding: wideScreen
-                      ? EdgeInsets.only(left: 15)
-                      : const EdgeInsets.only(top: 20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (status == CardStatus.solve) ...criteriaList(),
-                      if (status == CardStatus.answer) ...[
-                        SizedBox(
-                          width: rightWidth,
-                          child: ChecksWidget(
-                            checks: cards[currentCardIndex].answer,
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                      ],
-                      answerButtons(),
-                    ],
-                  )),
+              SizedBox(
+                width: boxkWidth,
+                child: solveBuild(wideScreen, screenWidth, mainAxisAlignment),
+              ),
             ],
           ),
         ],
@@ -121,42 +104,72 @@ class _EducateScreenState extends State<EducateScreen> {
     );
   }
 
-  List<Padding> criteriaList() {
+  Column cardBuild(MainAxisAlignment mainAxisAlignment) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TwitterEmbed(url: cards[currentCardIndex].url),
+        SizedBox(height: 10),
+        cardButtons(mainAxisAlignment),
+      ],
+    );
+  }
+
+  Padding solveBuild(bool wideScreen, double screenWidth,
+      MainAxisAlignment mainAxisAlignment) {
+    return Padding(
+        padding: wideScreen
+            ? EdgeInsets.only(left: 15)
+            : const EdgeInsets.only(top: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (status == CardStatus.solve)
+              ...criteriaList(screenWidth > 500 ? boxkWidth : screenWidth),
+            if (status == CardStatus.answer) ...[
+              ChecksWidget(
+                checks: cards[currentCardIndex].answer,
+              ),
+              SizedBox(height: 10),
+            ],
+            answerButtons(mainAxisAlignment),
+          ],
+        ));
+  }
+
+  List<Padding> criteriaList(double width) {
     return criteria.asMap().entries.map((entry) {
       final index = entry.key;
       final criterion = entry.value;
 
       return Padding(
         padding: const EdgeInsets.only(bottom: 15),
-        child: SizedBox(
-          width: rightWidth,
-          child: Column(
-            children: [
-              CheckTile(
-                check: Check(
-                  title: criterion.title,
-                  shortDescription: criterion.shortDescription,
-                  description: criterion.description,
-                  status: numberStatus[selectedIndexes[index]]!,
-                ),
+        child: Column(
+          children: [
+            CheckTile(
+              check: Check(
+                title: criterion.title,
+                shortDescription: criterion.shortDescription,
+                description: criterion.description,
+                status: numberStatus[selectedIndexes[index]]!,
               ),
-              const SizedBox(height: 8),
-              ToggleSelector(
-                width: rightWidth,
-                options: criterion.options,
-                selectedIndex: selectedIndexes[index],
-                onChanged: (i) => setState(() => selectedIndexes[index] = i),
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 8),
+            ToggleSelector(
+              width: width,
+              options: criterion.options,
+              selectedIndex: selectedIndexes[index],
+              onChanged: (i) => setState(() => selectedIndexes[index] = i),
+            ),
+          ],
         ),
       );
     }).toList();
   }
 
-  Row cardButtons() {
+  Row cardButtons(MainAxisAlignment mainAxisAlignment) {
     return Row(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: mainAxisAlignment,
       children: [
         OutlinedButton.icon(
           icon: Icon(Icons.skip_previous),
@@ -174,9 +187,9 @@ class _EducateScreenState extends State<EducateScreen> {
     );
   }
 
-  Row answerButtons() {
+  Row answerButtons(MainAxisAlignment mainAxisAlignment) {
     return Row(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: mainAxisAlignment,
       children: [
         FilledButton.icon(
           icon: Icon(Icons.send),
