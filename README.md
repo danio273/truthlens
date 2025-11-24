@@ -32,10 +32,10 @@ TruthLens Extension można zainstalować na trzy sposoby:
 
 #### 2. Pobranie z GitHub Release
 - Rozszerzenie w formie `.zip` dostępne jest w sekcji Release.
-- Następnie w Chrome:
+- Rozpakuj plik `.zip` i następnie w Chrome:
   1. W przeglądarce Chrome przejdź do `chrome://extensions/`.
   2. Włącz tryb deweloperski (Developer mode).
-  3. Wybierz "Load unpacked" i wskaż folder `build/web`.
+  3. Wybierz "Load unpacked" i wskaż rozpakowany folder.
 
 #### 3. Zbudować samodzielnie
 - W katalogu `/ext` uruchom komendę:
@@ -43,7 +43,10 @@ TruthLens Extension można zainstalować na trzy sposoby:
   flutter build web --no-web-resources-cdn --pwa-strategy=none --wasm
   ```
   Spowoduje to wygenerowanie folderu `build/web`, który zawiera pliki rozszerzenia.
-- Rozpakuj plik `.zip` i postępuj według powyższych instrukcji w Chrome (Load unpacked).
+- Następnie w Chrome:
+  1. W przeglądarce Chrome przejdź do `chrome://extensions/`.
+  2. Włącz tryb deweloperski (Developer mode).
+  3. Wybierz "Load unpacked" i wskaż folder `build/web`.
 
 **Użycie**: Po instalacji zaznacz tekst na stronie, kliknij ikonę rozszerzenia i zobacz wyniki.
 
