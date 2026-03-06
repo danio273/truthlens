@@ -49,6 +49,8 @@ class _CheckScreenState extends State<CheckScreen> {
       return;
     }
 
+    _clear();
+
     setState(() {
       status = Status.loading;
     });
@@ -58,12 +60,14 @@ class _CheckScreenState extends State<CheckScreen> {
     if (result == null) {
       showError("Serwer chwilowo nie odpowiada. Spróbuj za moment!");
       setState(() => status = Status.error);
+      _clear();
       return;
     }
 
     if (!result["processable"]) {
       showError(result["reason"]);
       setState(() => status = Status.error);
+      _clear();
       return;
     }
 
@@ -73,10 +77,9 @@ class _CheckScreenState extends State<CheckScreen> {
     });
   }
 
-  void _clearText() {
+  void _clear() {
     setState(() {
       checks = null;
-      textEditingController.clear();
       status = Status.empty;
     });
   }
@@ -153,7 +156,12 @@ class _CheckScreenState extends State<CheckScreen> {
             OutlinedButton.icon(
               icon: Icon(Icons.clear),
               label: Text("Wyczyść"),
-              onPressed: () => _clearText(),
+              onPressed: () {
+                setState(() {
+                  textEditingController.clear();
+                });
+                _clear();
+              },
             ),
             if (wideScreen) ...[
               const SizedBox(width: 10),
