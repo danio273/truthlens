@@ -13,13 +13,6 @@ import '../models/criteria_data.dart';
 
 import '../widgets/toggle_selector.dart';
 
-const numberStatus = {
-  -1: CheckStatus.empty,
-  0: CheckStatus.verified,
-  1: CheckStatus.questionable,
-  2: CheckStatus.falseInfo,
-};
-
 enum CardStatus { solve, answer }
 
 class EducateScreen extends StatefulWidget {
@@ -32,7 +25,7 @@ class EducateScreen extends StatefulWidget {
 class _EducateScreenState extends State<EducateScreen> {
   final double boxkWidth = 550;
 
-  List<int> selectedIndexes = List.filled(4, -1);
+  List<CheckStatus> userAnswers = List.filled(4, CheckStatus.empty);
 
   int currentCardIndex = 0;
   final List<Flashcard> cards = falshcards;
@@ -41,30 +34,98 @@ class _EducateScreenState extends State<EducateScreen> {
 
   void clear() {
     setState(() {
-      selectedIndexes.fillRange(0, selectedIndexes.length, -1);
+      userAnswers.fillRange(0, userAnswers.length, CheckStatus.empty);
       status = CardStatus.solve;
     });
   }
 
-  void checkAnswers() {
+  void checkUserAnswers() {
+    final correctAnswers =
+        cards[currentCardIndex].answer.map((check) => check.status).toList();
+
+    int points = 0;
+    final maxPoints = correctAnswers.length * 3;
+
+    for (int i = 0; i < correctAnswers.length; i++) {
+      if (userAnswers[i].index == 0) break;
+
+      final diff = (correctAnswers[i].index - userAnswers[i].index).abs();
+
+      if (diff == 0) points += 3;
+      if (diff == 1) points += 1;
+    }
+
+    double percentage = (points / maxPoints) * 100;
+
+    Icon resultIcon;
+
+    if (percentage >= 75) {
+      resultIcon = Icon(Icons.emoji_events, size: 50, color: Colors.green);
+    } else if (percentage >= 50) {
+      resultIcon =
+          Icon(Icons.warning_amber_rounded, size: 50, color: Colors.orange);
+    } else {
+      resultIcon = Icon(Icons.error, size: 50, color: Colors.red);
+    }
+
     setState(() {
-      status = CardStatus.answer;
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            contentPadding: const EdgeInsets.all(20),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                resultIcon,
+                SizedBox(height: 16),
+                Text(
+                  "$points / $maxPoints",
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  "${percentage.toStringAsFixed(0)}%",
+                  style: TextStyle(fontSize: 20, color: Colors.grey[600]),
+                ),
+              ],
+            ),
+            actionsAlignment: MainAxisAlignment.center,
+            actions: [
+              OutlinedButton.icon(
+                icon: Icon(Icons.delete),
+                label: Text("Wyczyść"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  clear();
+                },
+              ),
+              FilledButton.icon(
+                icon: Icon(Icons.close),
+                label: Text("Zamknij"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  status = CardStatus.answer;
+                },
+              ),
+            ],
+          );
+        },
+      );
     });
   }
 
   void previousCard() {
     setState(() {
       currentCardIndex--;
-      status = CardStatus.solve;
-      selectedIndexes.fillRange(0, selectedIndexes.length, -1);
+      clear();
     });
   }
 
   void nextCard() {
     setState(() {
       currentCardIndex++;
-      status = CardStatus.solve;
-      selectedIndexes.fillRange(0, selectedIndexes.length, -1);
+      clear();
     });
   }
 
@@ -149,15 +210,16 @@ class _EducateScreenState extends State<EducateScreen> {
                 title: criterion.title,
                 shortDescription: criterion.shortDescription,
                 description: criterion.description,
-                status: numberStatus[selectedIndexes[index]]!,
+                status: userAnswers[index],
               ),
             ),
             const SizedBox(height: 8),
             ToggleSelector(
               width: width,
               options: criterion.options,
-              selectedIndex: selectedIndexes[index],
-              onChanged: (i) => setState(() => selectedIndexes[index] = i),
+              selectedIndex: userAnswers[index].index - 1,
+              onChanged: (i) => setState(
+                  () => userAnswers[index] = CheckStatus.values[i + 1]),
             ),
           ],
         ),
@@ -185,22 +247,17 @@ class _EducateScreenState extends State<EducateScreen> {
     );
   }
 
-  Row answerButtons(MainAxisAlignment mainAxisAlignment) {
-    return Row(
-      mainAxisAlignment: mainAxisAlignment,
-      children: [
-        FilledButton.icon(
-          icon: Icon(Icons.send),
-          label: Text("Sprawdź"),
-          onPressed: () => checkAnswers(),
-        ),
-        const SizedBox(width: 10),
-        OutlinedButton.icon(
-          icon: Icon(Icons.clear),
-          label: Text("Wyczyść"),
-          onPressed: () => clear(),
-        ),
-      ],
-    );
+  Widget answerButtons(MainAxisAlignment mainAxisAlignment) {
+    return status == CardStatus.solve
+        ? FilledButton.icon(
+            icon: Icon(Icons.send),
+            label: Text("Sprawdź"),
+            onPressed: () => checkUserAnswers(),
+          )
+        : OutlinedButton.icon(
+            icon: Icon(Icons.clear),
+            label: Text("Wyczyść"),
+            onPressed: () => clear(),
+          );
   }
 }

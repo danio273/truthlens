@@ -8,10 +8,10 @@ const Map<String, String> checkTitles = {
 };
 
 enum CheckStatus {
+  empty,
   verified,
   questionable,
-  falseInfo,
-  empty;
+  falseInfo;
 
   static CheckStatus fromJson(String value) {
     switch (value) {
