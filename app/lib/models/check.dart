@@ -1,3 +1,5 @@
+import 'source.dart';
+
 const Map<String, String> checkTitles = {
   'source_reliability': 'Wiarygodność źródła',
   'logic_quality': 'Jakość logiki',
@@ -30,12 +32,14 @@ class Check {
   final String shortDescription;
   final CheckStatus status;
   final String? description;
+  final List<Source>? sources;
 
   const Check({
     required this.title,
     required this.shortDescription,
     this.status = CheckStatus.empty,
     this.description,
+    this.sources,
   });
 
   static List<Check> listFromJson(Map<String, dynamic> json) {
@@ -47,6 +51,9 @@ class Check {
         shortDescription: data['short'],
         status: CheckStatus.fromJson(data['status']),
         description: data['long'],
+        sources: data["sources"] != null
+            ? Source.listFromJson(data["sources"])
+            : null,
       );
     }).toList();
   }
