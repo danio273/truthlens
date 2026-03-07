@@ -69,6 +69,7 @@ class _EducateScreenState extends State<EducateScreen> {
     }
 
     setState(() {
+      status = CardStatus.answer;
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -105,7 +106,6 @@ class _EducateScreenState extends State<EducateScreen> {
                 label: Text("Zamknij"),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  status = CardStatus.answer;
                 },
               ),
             ],
