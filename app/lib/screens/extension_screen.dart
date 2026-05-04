@@ -16,7 +16,7 @@ class ExtensionScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     final String extensionUrl =
-        "https://github.com/danio273/truthlens/releases/download/v1.0.0/truthlens-extension.zip";
+        "https://github.com/danio273/truthlens/releases/latest/download/truthlens-extension.zip";
 
     return Scaffold(
       body: SingleChildScrollView(
