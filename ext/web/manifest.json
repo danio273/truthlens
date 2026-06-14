@@ -23,6 +23,7 @@
             "css": ["styles.css"],
             "js": [
                 "ui.js",
+                "prompts.js",
                 "ai.js",
                 "dom-utils.js",
                 "scanner.js",

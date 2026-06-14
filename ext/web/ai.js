@@ -9,28 +9,10 @@ const AIEngine = {
     const session = await this.getFreshSession();
     if (!session) return [];
 
-    const prompt = `Jesteś bezlitosnym, logicznym filtrem analizującym tekst z mediów społecznościowych. Szukasz WYŁĄCZNIE poważnych manipulacji (gaslighting, szantaż emocjonalny, mowa nienawiści, toksyczna presja).
+    const prompt = `${MANIPULATION_PROMPT} 
+    "${text}"`;
 
-ZASADY ABSOLUTNE:
-1. IGNORUJ interfejs i wezwania do akcji (np. "Show more", "Zapisz się", "Dołącz", "Kliknij", "Więcej").
-2. IGNORUJ liczby, statystyki, pozdrowienia, opisy pogody i relacje z wydarzeń.
-3. IGNORUJ zwykłe opinie polityczne, o ile nie stosują chwytów psychologicznych.
-4. Celuj tylko w pełne, znaczące zdania.
-
-Jeśli tekst jest czysty lub zawiera tylko normalny przekaz, odpowiedz dokładnie jednym słowem: CZYSTE.
-
-Jeśli znajdziesz manipulację, MUSISZ użyć DOKŁADNIE poniższego formatu tagów (bez bloków kodu, bez JSON):
-<MATCH>
-<TEXT>dokładny cytat z tekstu</TEXT>
-<REASON>Krótkie wyjaśnienie, dlaczego to manipulacja (po polsku)</REASON>
-</MATCH>
-
-Możesz użyć wielu bloków <MATCH>, jeśli jest więcej manipulacji.
-
-Tekst do analizy:
-"${text}"`;
-
-try {
+    try {
       const response = await session.prompt(prompt);
       if (session.destroy) session.destroy(); 
       return this.parseTags(response);
