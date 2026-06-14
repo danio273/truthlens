@@ -6,22 +6,6 @@ function getOrCreateTooltip() {
   if (!tooltip) {
     tooltip = document.createElement('div');
     tooltip.id = TOOLTIP_ID;
-    tooltip.style.cssText = `
-      position: fixed;
-      z-index: 2147483647;
-      background: #181825;
-      color: #cdd6f4;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      max-width: 320px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-      display: none;
-      pointer-events: none;
-      font-family: system-ui, -apple-system, sans-serif;
-      border: 1px solid #f38ba8;
-      line-height: 1.4;
-    `;
     document.documentElement.appendChild(tooltip);
   }
   return tooltip;
@@ -35,45 +19,11 @@ const StatusIndicator = {
 
     this.element = document.createElement('div');
     this.element.id = STATUS_ID;
-    this.element.style.cssText = `
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 2147483646;
-      background: #11111b;
-      color: #d6a1e3;
-      padding: 10px 16px;
-      border-radius: 30px;
-      font-size: 13px;
-      font-family: system-ui, sans-serif;
-      border: 1px solid #d6a1e3;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
-    `;
 
     this.element.innerHTML = `
-      <div style="
-        width: 14px; 
-        height: 14px; 
-        border: 2px solid #d6a1e3; 
-        border-top-color: transparent; 
-        border-radius: 50%; 
-        animation: ai-spin 0.8s linear infinite;
-      "></div>
-      <span id="${STATUS_ID}-text">Аналіз тексту ШІ...</span>
+      <div class="ai-spinner"></div>
+      <span id="${STATUS_ID}-text">Trwa analiza...</span>
     `;
-
-    if (!document.getElementById('ai-spinner-styles')) {
-      const style = document.createElement('style');
-      style.id = 'ai-spinner-styles';
-      style.textContent = `@keyframes ai-spin { to { transform: rotate(360deg); } }`;
-      document.head.appendChild(style);
-    }
 
     document.documentElement.appendChild(this.element);
   },

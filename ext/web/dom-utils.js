@@ -23,8 +23,6 @@ function highlightTextSafe(rootNode, targetText, reasonText) {
     span.className = 'ai-highlight-warn';
     span.setAttribute('data-ai-reason', reasonText);
     span.textContent = textVal.substring(idx, idx + targetText.length);
-    
-    span.style.cssText = "border-bottom: 2px dashed #f38ba8; background-color: rgba(243, 139, 168, 0.1); cursor: help; display: inline;";
 
     const before = document.createTextNode(textVal.substring(0, idx));
     const after = document.createTextNode(textVal.substring(idx + targetText.length));
