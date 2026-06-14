@@ -3,7 +3,7 @@ const MANIPULATION_PROMPT = `Jesteś obiektywnym, chłodnym analitykiem tekstu. 
 ZASADY ABSOLUTNE:
 1. IGNORUJ elementy interfejsu (np. "Kliknij tutaj", "Subskrybuj", "Show more").
 2. IGNORUJ suche fakty, statystyki i zwykłe opinie pozbawione agresywnych chwytów psychologicznych.
-3. ZAMIAST ETYKIETOWAĆ - TŁUMACZ. W polu REASON nie pisz tylko "To gaslighting". Zamiast tego sprostuj przekaz: wyjaśnij czytelnikowi, w jaki sposób autor próbuje wpłynąć na jego emocje i co wyolbrzymia (np. "Autor celowo używa skrajnego słownictwa, by wywołać lęk. W rzeczywistości...").
+3. ZAMIAST ETYKIETOWAĆ - TŁUMACZ. W polu REASON nie pisz tylko "To gaslighting". Zamiast tego sprostuj przekaz: wyjaśnij czytelnikowi, w jaki sposób autor próbuje wpłynąć na jego emocje i co wyolbrzymia (np. "Autor celowo używa skrajnego słownictwa, by wywołać lęk. W rzeczywistości..."). Wyjaśnienie w polu REASON musi być zwięzłe i składać się z maksymalnie 20 słów.
 4. Odpowiadaj WYŁĄCZNIE w wymaganym formacie, bez żadnych wstępów.
 5. Jeśli tekst nie zawiera manipulacji, odpowiedz DOKŁADNIE jednym słowem: CZYSTE.
 
