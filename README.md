@@ -4,23 +4,34 @@
 
 **TruthLens** to narzędzie oparte na sztucznej inteligencji, stworzone w celu automatycznej oceny wiarygodności tekstów w Internecie i walki z dezinformacją. Składa się z trzech głównych elementów:
 
-1. **Rozszerzenie przeglądarkowe** – umożliwia natychmiastową analizę zaznaczonego tekstu na dowolnej stronie internetowej, ocenianą pod kątem wiarygodności źródła, jakości logiki, presji emocjonalnej i manipulacji strukturalnej.
-2. **API** – pozwala na integrację z systemami zewnętrznymi, umożliwiając ocenę treści na podstawie kontekstu z wyszukiwania w Google oraz analizę za pomocą AI (Gemini-2.5).
+1. **Rozszerzenie przeglądarkowe** – umożliwia natychmiastową analizę treści na dowolnej stronie internetowej. Wykorzystuje hybrydowe podejście AI: lokalny model działający bezpośrednio w przeglądarce do szybkiego wykrywania manipulacji oraz analizę w chmurze z wykorzystaniem Gemini-2.5 Flash do pełnej weryfikacji informacji.
+2. **API** – pozwala na integrację z systemami zewnętrznymi, umożliwiając ocenę treści na podstawie kontekstu z wyszukiwania Google oraz analizę za pomocą AI (Gemini-2.5 Flash).
 3. **Serwis webowy** – centralna platforma do analizy tekstów, edukacji oraz wspierania użytkowników w samodzielnej weryfikacji informacji. Umożliwia również dzielenie się analizami w ramach społeczności, gdzie użytkownicy mogą wspólnie identyfikować dezinformację, a także uczestniczyć w dyskusjach na forum.
 
 Całość opiera się na nowoczesnych technologiach, takich jak Flutter, Dart i Python, zapewniając skalowalność i możliwość łatwej rozbudowy w przyszłości.
 
 ## Rozszerzenie Przeglądarkowe
 
-Rozszerzenie TruthLens umożliwia szybką analizę zaznaczonego tekstu na dowolnej stronie internetowej. Użytkownik zaznacza fragment tekstu, klika ikonę rozszerzenia i otrzymuje kompleksowy raport analizy wiarygodności. Jest to idealne narzędzie do weryfikacji informacji w czasie rzeczywistym podczas przeglądania sieci.
+Rozszerzenie TruthLens umożliwia szybką analizę treści podczas codziennego korzystania z Internetu. System wykorzystuje dwa poziomy analizy:
+
+- **Lokalne AI w przeglądarce** – model Gemini Nano wbudowany w Chrome analizuje treść bezpośrednio na urządzeniu użytkownika. Pozwala to na błyskawiczne wykrywanie potencjalnych manipulacji podczas przeglądania stron, bez wysyłania danych do zewnętrznych serwerów.
+- **Analiza w chmurze** – pełna analiza wykorzystująca Gemini-2.5 Flash oraz kontekst z wyszukiwania internetowego. Zapewnia dokładniejszą ocenę wiarygodności, logiki i zgodności informacji ze źródłami.
+
+Dzięki takiemu podejściu TruthLens łączy szybkość lokalnego AI z dokładnością dużych modeli działających w chmurze.
+
+Użytkownik może zaznaczyć tekst, kliknąć ikonę rozszerzenia i otrzymać kompleksowy raport analizy wiarygodności bez opuszczania aktualnej strony. System wspiera również analizę postów podczas przewijania stron, automatycznie wykrywając potencjalne manipulacje.
 
 ### Funkcjonalności
-- **Analiza tekstu**: Rozszerzenie łączy się z API (api.truthlens.pl), wysyłając zaznaczony tekst do analizy. Raport obejmuje cztery kategorie: wiarygodność źródła, jakość logiki, presja emocjonalna oraz struktura manipulacyjna.
-- **Wyświetlanie wyników**: Wyniki prezentowane są w intuicyjnym interfejsie, z krótkimi i długimi opisami dla każdej kategorii i statusem (verified, questionable, false_info).
+- **Analiza tekstu**: Rozszerzenie może korzystać zarówno z lokalnej analizy AI, jak i API (`api.truthlens.pl`) do pełnej weryfikacji tekstu. Raport obejmuje cztery kategorie: wiarygodność źródła, jakość logiki, presja emocjonalna oraz struktura manipulacyjna.
+- **Wykrywanie manipulacji w czasie rzeczywistym**: Lokalne AI analizuje treści na stronie i podświetla potencjalnie manipulacyjne fragmenty. Po najechaniu kursorem użytkownik otrzymuje krótkie wyjaśnienie wykrytej techniki manipulacji.
+- **Pełna analiza na żądanie**: Po zaznaczeniu tekstu użytkownik może uruchomić dokładniejszą analizę wykorzystującą API oraz dane z wyszukiwania internetowego.
+- **Wyświetlanie wyników**: Wyniki prezentowane są w intuicyjnym interfejsie, z krótkimi i długimi opisami dla każdej kategorii oraz statusem (`verified`, `questionable`, `false_info`).
 - **Język analizy**: Analiza zwracana jest w języku oryginalnego tekstu.
 
 ### Technologie
 - Zbudowane na Flutter z Dart (wersja Flutter 3.38.0, Dart 3.10.0).
+- Lokalne AI: Gemini Nano dostępne w przeglądarce Chrome.
+- Analiza chmurowa: Gemini-2.5 Flash poprzez API TruthLens.
 - Kompatybilne z przeglądarkami opartymi na Chromium (np. Google Chrome, Microsoft Edge). Nie testowane na Firefox.
 
 ### Instalacja i Uruchomienie
@@ -44,11 +55,18 @@ TruthLens Extension można zainstalować na trzy sposoby:
   ```
   Spowoduje to wygenerowanie folderu `build/web`, który zawiera pliki rozszerzenia.
 - Następnie w Chrome:
-  1. W przeglądarce Chrome przejdź do `chrome://extensions/`.
+  1. Przejdź do `chrome://extensions/`.
   2. Włącz tryb deweloperski (Developer mode).
   3. Wybierz "Load unpacked" i wskaż folder `build/web`.
 
-**Użycie**: Po instalacji zaznacz tekst na stronie, kliknij ikonę rozszerzenia i zobacz wyniki.
+### Konfiguracja lokalnego AI (Gemini Nano)
+Aby korzystać z funkcji lokalnej analizy AI, takich jak automatyczne wykrywanie manipulacji podczas przeglądania stron, należy włączyć obsługę Gemini Nano w Chrome.
+  1. Otwórz przeglądarkę Chrome i wpisz w pasku adres: `chrome://flags`.
+  2. Wyszukaj i włącz następujące opcje:
+    - Prompt API for Gemini Nano → ustaw na Enabled
+    - Enables optimization guide on device → ustaw na Enabled BypassPrefRequirement
+  3. Uruchom ponownie przeglądarkę Chrome.
+Po wykonaniu tych kroków TruthLens będzie mógł wykorzystywać lokalny model AI działający bezpośrednio na urządzeniu użytkownika.
 
 ![extension](assets/screenshots/extension.gif)
 
