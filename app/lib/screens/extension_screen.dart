@@ -38,7 +38,7 @@ class ExtensionScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Analizuj teksty bezpośrednio w przeglądarce i ucz się rozpoznawać fake newsy',
+                    'Analizuj teksty bezpośrednio w przeglądarce za lokalnego modelu AI oraz chmury',
                     style: theme.textTheme.headlineMedium?.copyWith(
                       color: theme.colorScheme.onPrimaryContainer,
                     ),
@@ -75,21 +75,23 @@ class ExtensionScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   StepItem(
                     number: 1,
-                    text: 'Zaznacz tekst na dowolnej stronie internetowej',
+                    text:
+                        'Lokalne AI automatycznie wykrywa i podświetla manipulacje na przeglądanej stronie w czasie rzeczywistym.',
                   ),
                   StepItem(
                     number: 2,
-                    text: 'Kliknij ikonę rozszerzenia w przeglądarce',
+                    text:
+                        'Zaznacz tekst na dowolnej stronie internetowej i kliknij ikonę rozszerzenia.',
                   ),
                   StepItem(
                     number: 3,
                     text:
-                        'Zobacz analizę: wiarygodność źródła, logika, presja emocjonalna, manipulacja',
+                        'Zobacz pełną analizę z chmury: wiarygodność źródła, logika, presja emocjonalna oraz struktura manipulacyjna.',
                   ),
                   StepItem(
                     number: 4,
                     text:
-                        'Ucz się na flashcards lub dziel się w forum społeczności',
+                        'Ucz się na flashcards lub dziel się analizami w społeczności.',
                   ),
                 ],
               ),
@@ -122,7 +124,7 @@ class ExtensionScreen extends StatelessWidget {
                         'Alternatywnie: przejdź do chrome://extensions/',
                   ),
                   InstructionStep(
-                    number: 3,
+                    number: 4,
                     text:
                         'Włącz tryb deweloperski (Developer mode) w prawym górnym rogu.',
                   ),
@@ -135,6 +137,45 @@ class ExtensionScreen extends StatelessWidget {
                     number: 6,
                     text:
                         'Rozszerzenie powinno pojawić się w pasku narzędzi przeglądarki.',
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 40),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Konfiguracja lokalnego AI',
+                    style: theme.textTheme.headlineSmall
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Aby korzystać z automatycznego wykrywania manipulacji na urządzeniu, włącz obsługę Gemini Nano w przeglądarce Chrome:',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 16),
+                  InstructionStep(
+                    number: 1,
+                    text: 'Otwórz Chrome i przejdź do flag konfiguracji:',
+                    shortcutText: 'chrome://flags',
+                  ),
+                  InstructionStep(
+                    number: 2,
+                    text:
+                        'Wyszukaj "Prompt API for Gemini Nano" i ustaw na Enabled.',
+                  ),
+                  InstructionStep(
+                    number: 3,
+                    text:
+                        'Wyszukaj "Enables optimization guide on device" i ustaw na Enabled BypassPrefRequirement.',
+                  ),
+                  InstructionStep(
+                    number: 4,
+                    text: 'Uruchom ponownie przeglądarkę Chrome.',
                   ),
                 ],
               ),
