@@ -22,7 +22,7 @@ Dzięki takiemu podejściu TruthLens łączy szybkość lokalnego AI z dokładno
 Użytkownik może zaznaczyć tekst, kliknąć ikonę rozszerzenia i otrzymać kompleksowy raport analizy wiarygodności bez opuszczania aktualnej strony. System wspiera również analizę postów podczas przewijania stron, automatycznie wykrywając potencjalne manipulacje.
 
 ### Funkcjonalności
-- **Analiza tekstu**: Rozszerzenie może korzystać zarówno z lokalnej analizy AI, jak i API (`api.truthlens.pl`) do pełnej weryfikacji tekstu. Raport obejmuje cztery kategorie: wiarygodność źródła, jakość logiki, presja emocjonalna oraz struktura manipulacyjna.
+- **Analiza tekstu**: Rozszerzenie może korzystać zarówno z lokalnej analizy AI, jak i API (`api.truthlens.com.pl`) do pełnej weryfikacji tekstu. Raport obejmuje cztery kategorie: wiarygodność źródła, jakość logiki, presja emocjonalna oraz struktura manipulacyjna.
 - **Wykrywanie manipulacji w czasie rzeczywistym**: Lokalne AI analizuje treści na stronie i podświetla potencjalnie manipulacyjne fragmenty. Po najechaniu kursorem użytkownik otrzymuje krótkie wyjaśnienie wykrytej techniki manipulacji.
 - **Pełna analiza na żądanie**: Po zaznaczeniu tekstu użytkownik może uruchomić dokładniejszą analizę wykorzystującą API oraz dane z wyszukiwania internetowego.
 - **Wyświetlanie wyników**: Wyniki prezentowane są w intuicyjnym interfejsie, z krótkimi i długimi opisami dla każdej kategorii oraz statusem (`verified`, `questionable`, `false_info`).
@@ -38,7 +38,7 @@ Użytkownik może zaznaczyć tekst, kliknąć ikonę rozszerzenia i otrzymać ko
 TruthLens Extension można zainstalować na trzy sposoby:
 
 #### 1. Pobranie z naszej strony
-- Wejdź na [www.truthlens.pl](https://www.truthlens.pl/#/extension)
+- Wejdź na [www.truthlens.com.pl](https://www.truthlens.com.pl/#/extension)
 - Na stronie znajduje się pełna instrukcja instalacji i uruchomienia w Chrome.
 
 #### 2. Pobranie z GitHub Release
@@ -70,11 +70,11 @@ Po wykonaniu tych kroków TruthLens będzie mógł wykorzystywać lokalny model 
 
 ![extension](assets/screenshots/extension.gif)
 
-Rozszerzenie jest w pełni funkcjonalne i gotowe do użycia. Link do pobrania: [Dostępne na stronie www.truthlens.pl w sekcji "Rozszerzenie"](https://www.truthlens.pl/#/extension).
+Rozszerzenie jest w pełni funkcjonalne i gotowe do użycia. Link do pobrania: [Dostępne na stronie www.truthlens.com.pl w sekcji "Rozszerzenie"](https://www.truthlens.com.pl/#/extension).
 
 ## API
 
-API TruthLens stanowi rdzeń projektu, obsługując zapytania analizy tekstu. Jest dostępne pod adresem [api.truthlens.pl](https://api.truthlens.pl/) i wykorzystuje model AI Gemini-2.5-flash do oceny wiarygodności. API wyszukuje informacje za pomocą Google Custom Search, budując kontekst weryfikacji.
+API TruthLens stanowi rdzeń projektu, obsługując zapytania analizy tekstu. Jest dostępne pod adresem [api.truthlens.com.pl](https://api.truthlens.com.pl/) i wykorzystuje model AI Gemini-2.5-flash do oceny wiarygodności. API wyszukuje informacje za pomocą Google Custom Search, budując kontekst weryfikacji.
 
 ### Funkcjonalności
 - **Analiza tekstu**: Przetwarza tekst w czterech kategoriach: Wiarygodność źródła, Jakość logiki, Presja emocjonalna, Struktura manipulacyjna. Zwraca podsumowanie (summary), status przetwarzalności (processable) oraz szczegółowe czynniki (factors).
@@ -152,16 +152,16 @@ W katalogu `/api`:
 ### Przykładowe Zapytanie
 - **CURL**:
   ```
-  curl -X POST https://api.truthlens.pl/ \
+  curl -X POST https://api.truthlens.com.pl/ \
   -H "Content-Type: application/json" \
   -d '{"query": "Przykładowy tekst do analizy."}'
   ```
 
-API jest w pełni funkcjonalne. Adres: [api.truthlens.pl](https://api.truthlens.pl/).
+API jest w pełni funkcjonalne. Adres: [api.truthlens.com.pl](https://api.truthlens.com.pl/).
 
 ## Serwis Webowy
 
-Serwis TruthLens dostępny pod adresem [www.truthlens.pl](https://www.truthlens.pl) to centralna platforma projektu. Zbudowany na Dart i Flutter, może być łatwo skompilowany na aplikacje mobilne (Android/iOS). Obecnie w fazie prototypu, z pełną funkcjonalnością dla kluczowych modułów.
+Serwis TruthLens dostępny pod adresem [www.truthlens.com.pl](https://www.truthlens.com.pl) to centralna platforma projektu. Zbudowany na Dart i Flutter, może być łatwo skompilowany na aplikacje mobilne (Android/iOS). Obecnie w fazie prototypu, z pełną funkcjonalnością dla kluczowych modułów.
 
 ### Funkcjonalności
 - **Sprawdź teraz**: Identyczna analiza tekstu jak w rozszerzeniu, z większą przestrzenią na wyniki (wprowadź tekst ręcznie lub skopiuj).
@@ -183,7 +183,7 @@ W katalogu `/app`:
 1. Zbuduj wersję web: `flutter build web`.
 2. Uruchom lokalnie: Użyj serwera webowego (np. `flutter run -d chrome`) lub deployuj na serwer.
 
-Serwis jest prototypem, z działającymi modułami Check i Educate (ograniczona baza fiszek). Forum to wizja bez pełnej implementacji. Adres: [www.truthlens.pl](https://www.truthlens.pl).
+Serwis jest prototypem, z działającymi modułami Check i Educate (ograniczona baza fiszek). Forum to wizja bez pełnej implementacji. Adres: [www.truthlens.com.pl](https://www.truthlens.com.pl).
 
 ## Podsumowanie i Plany Rozwoju
 
