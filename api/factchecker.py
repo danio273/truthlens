@@ -24,7 +24,10 @@ def fact_check(text: str) -> Dict[str, Any]:
         contents=[content],
         config=generation_config
     )
-    
+
+    if response.text is None:
+        raise ValueError("Empty response from model")
+
     analysis_result = json.loads(response.text)
 
     if 'factors' not in analysis_result:

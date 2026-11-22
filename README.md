@@ -70,11 +70,16 @@ Po wykonaniu tych kroków TruthLens będzie mógł wykorzystywać lokalny model 
 
 ![extension](assets/screenshots/extension.gif)
 
-Rozszerzenie jest w pełni funkcjonalne i gotowe do użycia. Link do pobrania: [Dostępne na stronie www.truthlens.com.pl w sekcji "Rozszerzenie"](https://www.truthlens.com.pl/#/extension).
+Rozszerzenie jest w pełni funkcjonalne i gotowe do użycia. Instrukcja instalacji i konfiguracji znajduje się na stronie [www.truthlens.com.pl/#/extension](https://www.truthlens.com.pl/#/extension).
 
 ## API
 
 API TruthLens stanowi rdzeń projektu, obsługując zapytania analizy tekstu. Jest dostępne pod adresem [api.truthlens.com.pl](https://api.truthlens.com.pl/) i wykorzystuje model AI Gemini-2.5-flash do oceny wiarygodności. API wyszukuje informacje za pomocą Google Custom Search, budując kontekst weryfikacji.
+
+### Dokumentacja
+Interaktywna dokumentacja API jest dostępna pod adresami:
+- **Swagger UI**: [api.truthlens.com.pl/docs](https://api.truthlens.com.pl/docs)
+- **ReDoc**: [api.truthlens.com.pl/redoc](https://api.truthlens.com.pl/redoc)
 
 ### Funkcjonalności
 - **Analiza tekstu**: Przetwarza tekst w czterech kategoriach: Wiarygodność źródła, Jakość logiki, Presja emocjonalna, Struktura manipulacyjna. Zwraca podsumowanie (summary), status przetwarzalności (processable) oraz szczegółowe czynniki (factors).
